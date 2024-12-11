@@ -61,8 +61,8 @@ def index():
 				login_user(user)
 				return redirect(url_for("menu"))
 		except:
-			return render_template('menu.html',warn = 'WRONG PASSWORD OR USERNAME')
-	return render_template('menu.html', warn = 'none')
+			return render_template('forside.html',warn = 'WRONG PASSWORD OR USERNAME')
+	return render_template('forside.html', warn = 'none')
 
 @app.route("/menu")
 def menu():
