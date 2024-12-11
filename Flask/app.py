@@ -2,9 +2,9 @@ from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user
 from flask_bcrypt import Bcrypt 
-from database_connector import DataBase
 import hashlib
 from datetime import datetime
+
 
 
 app = Flask(__name__)
@@ -72,8 +72,8 @@ def menu():
 def dosehub1():
 	if request.method == "POST":
 		creds = make_creds((request.form.get("admin"),request.form.get("opret_gest"),request.form.get("scan")))
-		user = Users(username=request.form.get("username"),
-					password=bcrypt.generate_password_hash(request.form.get("password")).decode('utf-8'),
+		user = Users(username=request.form.get("brugernavn"),
+					password=bcrypt.generate_password_hash(request.form.get("kode")).decode('utf-8'),
 					creds=creds)
 		db.session.add(user)
 		db.session.commit()
