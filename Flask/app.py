@@ -6,7 +6,6 @@ import hashlib
 from datetime import datetime
 
 
-
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "mysql:///db.mysql"
 app.config["SECRET_KEY"] = "abc"
