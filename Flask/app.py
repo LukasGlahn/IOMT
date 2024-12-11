@@ -131,7 +131,7 @@ def bagage_udlevering(qr_nr):
 			bagage_list.append(bagage[0])
 		return render_template("bagage_udlevering.html",warn = 'none', bagage_list = bagage_list, bagage_list_len = len(bagage_list), info = 'none')
 
-	
+
 
 if __name__ == "__main__":
 	app.run()
