@@ -61,8 +61,8 @@ def index():
 				login_user(user)
 				return redirect(url_for("menu"))
 		except:
-			return render_template('index.html',warn = 'WRONG PASSWORD OR USERNAME')
-	return render_template('index.html', warn = 'none')
+			return render_template('menu.html',warn = 'WRONG PASSWORD OR USERNAME')
+	return render_template('menu.html', warn = 'none')
 
 @app.route("/menu")
 def menu():
@@ -131,71 +131,6 @@ def bagage_udlevering(qr_nr):
 			bagage_list.append(bagage[0])
 		return render_template("bagage_udlevering.html",warn = 'none', bagage_list = bagage_list, bagage_list_len = len(bagage_list), info = 'none')
 
-@app.route("/admin")
-def admin():
-	return render_template("admin.html")
-
-@app.route("/opret_gest", methods=["GET", "POST"])
-def opret_gest():
-	if request.method == "POST":
-		uid = f'{request.form.get("name")}{request.form.get("email")}{datetime.now()}'
-		hashed_data = hashlib.md5(uid.encode())
-		gest = (request.form.get("name"),request.form.get("email"),request.form.get("room"),hashed_data.hexdigest())
-		gest_bagage = request.form.get("luggage_number").replace(' ','').split(',')
-		db_log = storage_db.add_to_databace('INSERT INTO gest (name, email, room, uid) VALUES(?, ?, ?, ?)',gest)
-		if type(db_log) is str:
-			split_log = db_log.split('.')
-			return render_template("opret_gest.html",warn = f'{split_log[1].upper()} ALREADY IN USE')
-		else:
-			gestid = storage_db.get_databace_data(f'SELECT id FROM gest WHERE uid IS "{hashed_data.hexdigest()}"')
-			for bagage in gest_bagage:
-				bagage = int(bagage)
-				print(storage_db.add_to_databace(f'UPDATE bagage SET gestid = {gestid[0][0]} WHERE id = {bagage};',()))
-			return render_template("opret_gest.html",warn = 'GUEST SUCCESFULLY CREATED')
-	return render_template("opret_gest.html",warn = 'none')
-
-@app.route("/update_gest", methods=["GET", "POST"])
-def update_gest_menu():
-	gests = storage_db.get_databace_data(f'SELECT * FROM gest')
-	return render_template("update_gest_menu.html",gests = gests, gests_len = len(gests))
-
-@app.route("/update_gest/<int:id>", methods=["GET", "POST"])
-def update_gest(id):
-	if request.method == "POST":
-		gest = (request.form.get("name"),request.form.get("email"),request.form.get("room"))
-		gest_bagage_in = request.form.get("luggage_number").replace(' ','').split(',')
-		db_log = storage_db.add_to_databace(f'UPDATE gest SET name = ?, email = ?, room = ? WHERE id = {id}',gest)
-		if type(db_log) is str:
-			split_log = db_log.split('.')
-			return render_template("update_gest.html",warn = f'{split_log[0].upper()} ALREADY IN USE')
-		else:
-			gest_bagage = storage_db.get_databace_data(f'SELECT id FROM bagage WHERE gestid IS {id}')
-			bagage_list = []
-			#Rmove
-			for bagage in gest_bagage:
-				bag = request.form.get(str(bagage[0]))
-				print(type(bag))
-				if type(bag) == str:
-					print(bag)
-					storage_db.add_to_databace(f'UPDATE bagage SET gestid = NULL WHERE id = {bag};',())
-			#Add
-			for bagage in gest_bagage_in:
-				if bagage == '': break
-				bagage = int(bagage)
-				print(storage_db.add_to_databace(f'UPDATE bagage SET gestid = {id} WHERE id = {bagage};',()))
-			#show
-			gest_bagage = storage_db.get_databace_data(f'SELECT id FROM bagage WHERE gestid IS {id}')
-			bagage_list = []
-			for bagage in gest_bagage:
-				bagage_list.append(bagage[0])
-			gest_data = storage_db.get_databace_data(f'SELECT * FROM gest WHERE id IS {id}')
-			return render_template("update_gest.html",warn = 'GUEST SUCCESFULLY UPDATED', name = gest_data[0][1],email = gest_data[0][2],room = gest_data[0][3],bagage_list = bagage_list,bagage_list_len = len(bagage_list))
-	gest_bagage = storage_db.get_databace_data(f'SELECT id FROM bagage WHERE gestid IS {id}')
-	bagage_list = []
-	for bagage in gest_bagage:
-		bagage_list.append(bagage[0])
-	gest_data = storage_db.get_databace_data(f'SELECT * FROM gest WHERE id IS {id}')
-	return render_template("update_gest.html",warn = 'none', name = gest_data[0][1],email = gest_data[0][2],room = gest_data[0][3],bagage_list = bagage_list,bagage_list_len = len(bagage_list))
 	
 
 if __name__ == "__main__":
