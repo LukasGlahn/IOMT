@@ -2,13 +2,13 @@ from flask import Flask, request, jsonify, render_template, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user
 from flask_bcrypt import Bcrypt 
-from databace_conector import DataBase
+from database_connector import DataBase
 import hashlib
 from datetime import datetime
 
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
+app.config["SQLALCHEMY_DATABASE_URI"] = "mysql:///db.mysql"
 app.config["SECRET_KEY"] = "abc"
 db = SQLAlchemy()
 
@@ -56,8 +56,8 @@ def index():
 	if request.method == "POST":
 		try:
 			user = Users.query.filter_by(
-				username=request.form.get("username")).first()
-			if bcrypt.check_password_hash(user.password, request.form.get("password")):
+				username=request.form.get("brugernavn")).first()
+			if bcrypt.check_password_hash(user.password, request.form.get("kode")):
 				login_user(user)
 				return redirect(url_for("menu"))
 		except:
@@ -68,7 +68,7 @@ def index():
 def menu():
 	return render_template('menu.html')
 
-@app.route('/make_user', methods=["GET", "POST"])
+@app.route('/dosehub1', methods=["GET", "POST"])
 def make_user():
 	if request.method == "POST":
 		creds = make_creds((request.form.get("admin"),request.form.get("opret_gest"),request.form.get("scan")))
@@ -80,16 +80,16 @@ def make_user():
 		return redirect(url_for("admin"))
 	return render_template("make_user.html")
 
-@app.route("/logout")
+@app.route("/dosehub2")
 def logout():
 	logout_user()
 	return redirect(url_for("index"))
 
-@app.route("/scan")
+@app.route("/dosehub3")
 def scan():
 	return render_template("scan.html")
 
-@app.route("/bagage/<int:qr_nr>/")
+@app.route("/dosehub4")
 def bagage(qr_nr):
 	bagage_data = storage_db.get_databace_data(f'SELECT gestid FROM bagage WHERE id IS {qr_nr}')
 	gestid = bagage_data[0][0]
