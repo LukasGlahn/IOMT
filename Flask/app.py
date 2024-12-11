@@ -69,7 +69,7 @@ def menu():
 	return render_template('menu.html')
 
 @app.route('/dosehub1', methods=["GET", "POST"])
-def make_user():
+def dosehub1():
 	if request.method == "POST":
 		creds = make_creds((request.form.get("admin"),request.form.get("opret_gest"),request.form.get("scan")))
 		user = Users(username=request.form.get("username"),
@@ -78,23 +78,23 @@ def make_user():
 		db.session.add(user)
 		db.session.commit()
 		return redirect(url_for("admin"))
-	return render_template("make_user.html")
+	return render_template("dosehub1.html")
 
 @app.route("/dosehub2")
-def logout():
+def dosehub2():
 	logout_user()
 	return redirect(url_for("index"))
 
 @app.route("/dosehub3")
-def scan():
-	return render_template("scan.html")
+def dosehub3():
+	return render_template("dosehub3.html")
 
 @app.route("/dosehub4")
-def bagage(qr_nr):
+def dosehub4(qr_nr):
 	bagage_data = storage_db.get_databace_data(f'SELECT gestid FROM bagage WHERE id IS {qr_nr}')
 	gestid = bagage_data[0][0]
 	if gestid is None:
-		return render_template("bagage.html",warn = 'TAG HAS NO DATA')
+		return render_template("dosehub4.html",warn = 'TAG HAS NO DATA')
 	else:
 		gest_data = storage_db.get_databace_data(f'SELECT * FROM gest WHERE id IS {gestid}')
 		return render_template("bagage.html",gest_data = gest_data, qr_nr = qr_nr,warn = 'none')
