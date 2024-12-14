@@ -4,6 +4,7 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user
 from flask_bcrypt import Bcrypt 
 import hashlib
 from datetime import datetime
+import secrets
 
 
 app = Flask(__name__)
