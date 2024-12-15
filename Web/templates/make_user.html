@@ -1,0 +1,12 @@
+<div class="row fs-5 p-5 mt-2 mb-2">
+    <h1>Opret Bruger</h1>
+    {% if warn != 'none' %}<h1>{{warn}}</h1>{% endif %}
+        <form action="#" method="post">
+        <label for="username">Bruger Navn</label>
+        <input type="text" name="username" class="form-control"/>
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control"/>
+        <div class="mb-3 p-3 form-check">
+            <button type="submit" class="btn btn-primary" >SUBMIT</button>
+        </div>
+<div>
