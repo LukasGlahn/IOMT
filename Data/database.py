@@ -50,6 +50,26 @@ class Database():
         finally:
             db.close()
 
+    def get_where(self,query,data,max_output = 20):
+        try:
+            db = mysql.connector.connect(
+                host=self.ip,
+                user=self.user,
+                passwd=self.passwd,
+                database=self.database,
+                auth_plugin='mysql_native_password'
+            )
+            cur = db.cursor()
+            cur.execute(query,data)
+            rows = cur.fetchmany(max_output)
+            return rows
+
+        except Exception as e:
+            print(f'encounterd a error: {e}')
+
+        finally:
+            db.close()
+
 #setup db conection ("ip","user","password,"DBname")
 #db = database("10.136.132.61","lukas","google","test")
 

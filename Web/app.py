@@ -4,14 +4,35 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, curren
 from flask_bcrypt import Bcrypt 
 import secrets
 from database import Database
+import os
+import sys
+from socket import *
 
 #misc Fungtions
 ######################################################################################################################################################
 
 #fungtion to send data in a digestebel form about pil despensing to a pill despenser
-def dispense(pills):
-	print(pills)
+def dispense(pills, ip):
+    str_pills = str(pills)
+    serverName = ip
+    serverPort = 12000
+    clintSocket = socket(AF_INET, SOCK_DGRAM)
+    clintSocket.sendto(str_pills.encode("utf-8"), (serverName, serverPort))
+    print(pills)
 
+
+def ping(ip):
+    param = '-n' if sys.platform.lower() == 'win32' else '-c'
+    hostname = ip  # example
+    response = os.system(f"ping {param} 1 {hostname}")
+    
+    # and then check the response...
+    if response == 0:
+        print(f"{hostname} is up!")
+        return("Is Up")
+    else:
+        print(f"{hostname} is down!")
+        return("Is Down")
 
 #flask misc setup
 ######################################################################################################################################################
@@ -73,7 +94,10 @@ def menu():
 
 @app.route("/maskine/<int:id>", methods=["GET", "POST"])
 def maskine(id):
-	
+	maskin = remote_db.get_where("SELECT * FROM maskiner WHERE id = (%s)",(id,))
+	name = maskin[0][1]
+	ip = maskin[0][2]
+	up = ping(ip)
     #despense handeling to handle wene a post reqest wiyh pills come in
 	if request.method == "POST":
 		piller = remote_db.get("SELECT * FROM piller")
@@ -89,11 +113,11 @@ def maskine(id):
 				pil.append(request.form.get(str(pille[0])))
 				piller_for_dispense.append(pil)
 		
-		dispense(piller_for_dispense)
-		return render_template('maskine.html', piller = piller, len_piller = len(piller))
+		dispense(piller_for_dispense, ip)
+		return render_template('maskine.html', piller = piller, len_piller = len(piller), up = up, name = name)
     #site reqest for showing the site wene a nomal reqest soms in
 	piller = remote_db.get("SELECT * FROM piller")
-	return render_template('maskine.html', piller = piller, len_piller = len(piller))
+	return render_template('maskine.html', piller = piller, len_piller = len(piller), up = up, name = name)
 
 
 ## TEMP REMOVE WENNE NOT IN USE
