@@ -164,3 +164,4 @@ cython_debug/
 
 #exstra
 secrets.py
+/.vscode

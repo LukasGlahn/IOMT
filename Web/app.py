@@ -3,12 +3,31 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, logout_user, current_user
 from flask_bcrypt import Bcrypt 
 import secrets
+from database import Database
+
+#misc Fungtions
+######################################################################################################################################################
+
+#fungtion to send data in a digestebel form about pil despensing to a pill despenser
+def dispense(pills):
+	print(pills)
+
+
+#flask misc setup
+######################################################################################################################################################
+
+remote_db = Database(
+	secrets.db_ip,
+    secrets.db_user,
+    secrets.db_password,
+    secrets.db_db
+)
 
 #flask login setup
 ######################################################################################################################################################
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "mysql:///db.mysql"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
 app.config["SECRET_KEY"] = secrets.secret_key
 db = SQLAlchemy()
 
@@ -48,9 +67,36 @@ def index():
 
 @app.route("/menu")
 def menu():
-	#get data for all dose hubs in db
-	return render_template('menu.html')
+	#get data from database to be able to list all mashines in db an use the id as a link to machine page
+	maskiner = remote_db.get("SELECT * FROM maskiner")
+	return render_template('menu.html',maskiner = maskiner, maskiner_len = len(maskiner))
 
+@app.route("/maskine/<int:id>", methods=["GET", "POST"])
+def maskine(id):
+	
+    #despense handeling to handle wene a post reqest wiyh pills come in
+	if request.method == "POST":
+		piller = remote_db.get("SELECT * FROM piller")
+		#digest input from site to only the pills that hase to be despensted
+		piller_for_dispense = []
+		if request.form.get("date"):
+			piller_for_dispense.append(request.form.get("datetime"))
+		for pille in piller:
+			pil = []
+			amount = request.form.get(str(pille[0]))
+			if int(amount) > 0:
+				pil.append(pille[0])
+				pil.append(request.form.get(str(pille[0])))
+				piller_for_dispense.append(pil)
+		
+		dispense(piller_for_dispense)
+		return render_template('maskine.html', piller = piller, len_piller = len(piller))
+    #site reqest for showing the site wene a nomal reqest soms in
+	piller = remote_db.get("SELECT * FROM piller")
+	return render_template('maskine.html', piller = piller, len_piller = len(piller))
+
+
+## TEMP REMOVE WENNE NOT IN USE
 @app.route('/make_user', methods=["GET", "POST"])
 def make_user():
     if request.method == "POST" and current_user.is_authenticated:

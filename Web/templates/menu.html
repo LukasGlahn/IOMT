@@ -1,25 +1,18 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home</title>
-  <link rel="stylesheet" href="url_for('static', filename='style.css') " />
-  <meta http-equiv="refresh" content="0; url=/" />
+  <title>Document</title>
 </head>
 <body>
-  <div class="container">
-    <div class="column-left">
-      <a href="/menu">
-        <form action="#" method="post">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7F1_dWTPUIcd9KnTlBN9-rc0IfHSvtm8AUQ&s" name="myButton" height="160" width="160" alt="logo">
-    </a>
-    <button type="button" name="myButton"> DoseHub1 </button>
-    <button type="button" name="myButton"> DoseHub2 </button>
-    <button type="button" name="myButton"> DoseHub3 </button>
-    <button type="button" name="myButton"> DoseHub4 </button>
-    <button type="button" name="myButton"> Log ud </button>
+  {%for maskine in range(0, maskiner_len)%}
+    <div style="max-width: fit-content; margin-left: auto; margin-right: auto;">
+      <p>{{maskiner[maskine][1]}}</p>
+      <a href="/maskine/{{maskiner[maskine][0]}}">
+        <button>GO!</button>
+      </a>
     </div>
+  {%endfor%}
 </body>
 </html>
