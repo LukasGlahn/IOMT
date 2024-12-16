@@ -28,4 +28,4 @@ INSERT INTO piller (id, name)
 VALUES (2, "blå m&m");
 
 --@block
-SELECT * FROM piller
+SELECT * FROM users

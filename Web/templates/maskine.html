@@ -6,6 +6,7 @@
     <title>maskine</title>
 </head>
 <body>
+    {% if current_user.is_authenticated %}
     <p>Maskine {{name}}</p>
     <p>Maskine {{up}}</p>
     <div>
@@ -24,5 +25,11 @@
         <button type="submit">SUBMIT</button>
     </form>
     </div>
+    {% else %}
+    <div class="row fs-5 p-5 mt-2 mb-2">
+        <h1 class="text-center">Du har ikke tiladelse til at se denne side</h1>
+        <a type="button" class="btn btn-primary" href="/">tilbage til siden</a>
+    </div>
+    {% endif %}
 </body>
 </html>

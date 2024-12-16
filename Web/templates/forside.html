@@ -10,6 +10,9 @@
   <div class="container">
     <div class="column-left">
       <a href="/forside">
+        {% if warn != 'none' %}
+	        <h1>{{warn}}</h1>
+	      {% endif %}
         <form action="#" method="post">
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7F1_dWTPUIcd9KnTlBN9-rc0IfHSvtm8AUQ&s" name="myButton" height="160" width="160" alt="logo">
     </a>
