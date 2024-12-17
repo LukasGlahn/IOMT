@@ -1,35 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>maskine</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MASKINE</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    {% if current_user.is_authenticated %}
-    <p>Maskine {{name}}</p>
-    <p>Maskine {{up}}</p>
-    <div>
-    <form action="#" method="post">
-        {%for pille in range(0, len_piller)%}
+  <div class="container">
+    <div class="column-left">
+      <!-- Logo -->
+      <a href="/menu">
+        <img src="{{ url_for('static', filename='Novo-Logo.png') }}" alt="Logo">
+      </a>
+
+      <!-- Conditional Content -->
+      {% if current_user.is_authenticated %}
+        <p>Maskine {{ name }}</p>
+        <p>Maskine {{ up }}</p>
+
+        <!-- Form Section -->
         <div>
-            <label for="{{piller[pille][0]}}">{{piller[pille][1]}}</label>
-            <input type="number" name="{{piller[pille][0]}}" step="1" value="0" min="0" max="7" required>
+          <form action="#" method="post">
+            {% for pille in range(0, len_piller) %}
+              <div>
+                <label for="{{ piller[pille][0] }}">{{ piller[pille][1] }}</label>
+                <input type="number" name="{{ piller[pille][0] }}" step="1" value="0" min="0" max="7" required>
+              </div>
+            {% endfor %}
+            <div>
+              <label>Check for dispense date</label>
+              <input type="checkbox" name="date">
+              <input type="datetime-local" name="datetime" value="2024-12-16T13:55">
+            </div>
+            <button type="submit">SUBMIT</button>
+          </form>
         </div>
-        {%endfor%}
-        <div>
-            <label>check for dispense date</label>
-            <input type="checkbox" name="date">
-            <input type="datetime-local" name="datetime" value="2024-12-16T13:55">
+      {% else %}
+        <div class="row fs-5 p-5 mt-2 mb-2">
+          <h1 class="text-center">Du har ikke tilladelse til at se denne side</h1>
+          <a type="button" class="btn btn-primary" href="/">Tilbage til siden</a>
         </div>
-        <button type="submit">SUBMIT</button>
-    </form>
+      {% endif %}
     </div>
-    {% else %}
-    <div class="row fs-5 p-5 mt-2 mb-2">
-        <h1 class="text-center">Du har ikke tiladelse til at se denne side</h1>
-        <a type="button" class="btn btn-primary" href="/">tilbage til siden</a>
-    </div>
-    {% endif %}
+  </div>
 </body>
 </html>

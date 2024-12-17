@@ -1,167 +1,109 @@
-
 body, html {
-    height: 100%;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #ffffff;
-    
-  }
-  
-  @font-face {
-    font-family: 'OpenSans'; 
-    src: url('OpenSans-Regular.ttf'); 
-  }
-  
-  body {
-    font-family: 'CustomFont', sans-serif; 
-  }
-  .container img {
-    height: auto;
-    width: auto;
-    max-height: 250px; 
-    max-width: 250px; 
-  }
-  
-  .container {
-    text-align: center;
-    color: #001966;
-  }
-  
-  .column-left {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0px 32px;
-  }
-  
-  .column-left h1 {
-    margin-bottom: 1rem;
-    font-size: 25px;
-    font-family: "Open Sans", sans-serif;
-  }
-  
-  button {
-    padding: 16px;
-    font-size: 14px;
-    border: none;
-    color:  #001966;
-    background-color: rgb(255, 255, 255);
-    cursor: pointer;
-    border-radius: 50px;
-    margin: 10px 0;
-    font-family: "Open Sans", sans-serif;
-    box-shadow: 0 1px 3px #001966;
-    transition: .2s;
-    width: auto;
-    width: 100%;
-  }
-  
-  button:hover {
-    transform: scale(1.2);
-  }
-  
-  form {
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto; 
-  }
-  
-  form label {
-    display: block;
-    margin: 10px 0 5px;
-    font-size: 14px;
-    color: #001966;
-  }
-  
-  form input {
-    width: auto;
-    min-width: 250px;
-    padding: 12px;
-    margin-bottom: 10px;
-    border: 1px solid #001966;
-    border-radius: 5px;
-    font-size: 14px;
-    background-color: rgb(255, 255, 255);
-    color: #001966;
-  }
-  
-  form input[type="text"],
-  form input[type="email"],
-  form input[type="number"] {
-    background-color: rgb(255, 255, 255);
-    color: #001966;
-  }
-  
-  form input:focus {
-    border-color: #001966;
-    outline: none;
-  }
-  
-  form button {
-    padding: 12px;
-    font-size: 14px;
-    border: none;
-    color: #001966;
-    background-color: rgb(255, 255, 255);
-    cursor: pointer;
-    border-radius: 5px;
-    margin-top: 10px;
-    font-family: "Open Sans", sans-serif;
-    box-shadow: 0 1px 3px #001966;
-    transition: .2s;
-  }
-  
-  form button:hover {
-    transform: scale(1.1);
-  }
-  
-  /*Checkbokse*/
-  input[type=checkbox] + label {
-    display: block;
-    margin: 0.2em;
-    cursor: pointer;
-    padding: 0.2em;
-  }
-  
-  input[type=checkbox] {
-    display: none;
-  }
-  
-  input[type=checkbox] + label:before {
-    content: "\2714";
-    border: 0.1em solid #001966;
-    border-radius: 0.2em;
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    padding-left: 0.2em;
-    padding-bottom: 0.3em;
-    margin-right: 0.2em;
-    vertical-align: bottom;
-    color: transparent;
-    transition: .2s;
-  }
-  
-  input[type=checkbox] + label:active:before {
-    transform: scale(0);
-  }
-  
-  input[type=checkbox]:checked + label:before {
-    background-color: rgb(255, 255, 255);
-    border-color: #001966;
-    color: #001966;
-  }
-  
-  input[type=checkbox]:disabled + label:before {
-    transform: scale(1);
-    border-color: #aaa;
-  }
-  
-  input[type=checkbox]:checked:disabled + label:before {
-    transform: scale(1);
-    background-color: #001966;
-    border-color: #001966;
-  }
-  
+  height: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgb(179, 212, 252);
+}
+
+.container img {
+  height: auto;
+  width: auto;
+  max-height: 250px; 
+  max-width: 250px; 
+}
+
+.container {
+  text-align: center;
+  color: rgba(1, 25, 98, 255);
+}
+
+.column-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0px 32px;
+}
+
+.column-left h1 {
+  margin-bottom: 1rem;
+  font-size: 25px;
+  font-family: "Novo Sans";
+}
+
+button {
+  padding: 16px;
+  font-size: 14px;
+  border: none;
+  color: rgba(1, 25, 98, 255);
+  background-color: rgb(255, 255, 255);
+  cursor: pointer;
+  border-radius: 50px;
+  margin: 10px 0;
+  font-family: "Novo Sans";
+  box-shadow: 0 1px 3px rgba(1, 25, 98, 255);
+  transition: .2s;
+  width: auto;
+  width: 100%;
+}
+
+button:hover {
+  transform: scale(1.2);
+}
+
+form {
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto; 
+}
+
+form label {
+  display: block;
+  margin: 10px 0 5px;
+  font-size: 14px;
+  color: rgba(1, 25, 98, 255);
+}
+
+form input {
+  width: auto;
+  min-width: 250px;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(1, 25, 98, 255);
+  border-radius: 5px;
+  font-size: 14px;
+  background-color: rgb(179, 212, 252);
+  color: rgba(1, 25, 98, 255);
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="number"] {
+  background-color: rgb(179, 212, 252);
+  color: rgba(1, 25, 98, 255);
+}
+
+form input:focus {
+  border-color: rgba(1, 25, 98, 255);
+  outline: none;
+}
+
+form button {
+  padding: 12px;
+  font-size: 14px;
+  border: none;
+  color: rgba(1, 25, 98, 255);
+  background-color: rgb(179, 212, 252);
+  cursor: pointer;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-family: "Novo Sans";
+  box-shadow: 0 1px 3px rgba(1, 25, 98, 255);
+  transition: .2s;
+}
+
+form button:hover {
+  transform: scale(1.1);
+}
+
