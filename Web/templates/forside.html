@@ -4,25 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Home</title>
-  <link rel="stylesheet" href="url_for('static', filename='style.css') " />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
   <div class="container">
     <div class="column-left">
-      <a href="/forside">
-        {% if warn != 'none' %}
-	        <h1>{{warn}}</h1>
-	      {% endif %}
-        <form action="#" method="post">
-        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7F1_dWTPUIcd9KnTlBN9-rc0IfHSvtm8AUQ&s" name="myButton" height="160" width="160" alt="logo">
-    </a>
-    <h1>Login</h1>
-	<form action="#" method="post">
-	<label for="username">Brugernavn</label>
-	<input type="text" name="username" />
-	<label for="password">Kode</label>
-	<input type="password" name="password" />
-	<button type="submit">Log ind</button>
-</div>
+      <!-- Logo -->
+      <a href="/menu">
+        <img src="{{ url_for('static', filename='Novo-Logo.png') }}" alt="Logo">
+      </a>
+
+      <!-- Conditional Warning -->
+      {% if warn != 'none' %}
+        <h1>{{ warn }}</h1>
+      {% endif %}
+
+      <!-- Login Section -->
+      <h1>Login</h1>
+      <form action="#" method="post">
+        <label for="username">Brugernavn</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Kode</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Log ind</button>
+      </form>
+    </div>
+  </div>
 </body>
 </html>

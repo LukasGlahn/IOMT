@@ -3,23 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>MENU</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-  {% if current_user.is_authenticated %}
-  {%for maskine in range(0, maskiner_len)%}
-    <div style="max-width: fit-content; margin-left: auto; margin-right: auto;">
-      <p>{{maskiner[maskine][1]}}</p>
-      <a href="/maskine/{{maskiner[maskine][0]}}">
-        <button>GO!</button>
+  <div class="container">
+    <div class="column-left">
+      <!-- Logo -->
+      <a href="/menu">
+        <img src="{{ url_for('static', filename='Novo-Logo.png') }}" alt="Logo">
       </a>
+
+      <!-- Conditional Content -->
+      {% if current_user.is_authenticated %}
+        {% for maskine in range(0, maskiner_len) %}
+          <div style="max-width: fit-content; margin: auto;">
+            <p>{{ maskiner[maskine][1] }}</p>
+            <a href="/maskine/{{ maskiner[maskine][0] }}">
+              <button>GO!</button>
+            </a>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div class="row fs-5 p-5 mt-2 mb-2">
+          <h1 class="text-center">Du har ikke tilladelse til at se denne side</h1>
+          <a type="button" class="btn btn-primary" href="/">Tilbage til siden</a>
+        </div>
+      {% endif %}
     </div>
-  {%endfor%}
-  {% else %}
-  <div class="row fs-5 p-5 mt-2 mb-2">
-      <h1 class="text-center">Du har ikke tiladelse til at se denne side</h1>
-      <a type="button" class="btn btn-primary" href="/">tilbage til siden</a>
   </div>
-  {% endif %}
 </body>
 </html>
