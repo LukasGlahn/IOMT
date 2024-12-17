@@ -50,7 +50,7 @@ remote_db = Database(
 ######################################################################################################################################################
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
+#app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db.sqlite"
 #app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://<username>:<password>@<host>/<database_name>"
 app.config["SQLALCHEMY_DATABASE_URI"] = f"mysql+pymysql://{my_secrets.db_user}:{my_secrets.db_password}@{my_secrets.db_ip}/{my_secrets.db_db}"
 app.config["SECRET_KEY"] = my_secrets.secret_key
