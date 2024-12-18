@@ -1,4 +1,4 @@
-import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO #Husk at pip install RPI.GPIO på Raspberry Pi
 import time
 
 # Sensor Digital Pin Configuration
