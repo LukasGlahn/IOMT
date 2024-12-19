@@ -71,7 +71,7 @@ class Database():
             db.close()
 
 #setup db conection ("ip","user","password,"DBname")
-db = Database("10.136.132.70","lukas","google","test")
+#db = Database("10.136.132.70","lukas","google","test")
 
 
 
@@ -81,4 +81,4 @@ db = Database("10.136.132.70","lukas","google","test")
 
 
 #mysql get
-print(db.get("SELECT * FROM goof"))
+#print(db.get("SELECT * FROM goof"))
