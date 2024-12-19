@@ -9,14 +9,15 @@ class ir_sensor():
         self.pin_sensor_digital = pin_sensor  # flammesensor pin 24
         self.pin_led = pin_led  # Powerled pin 23
 
-        # GPIO setup
-        GPIO.setmode(GPIO.BCM)  # Use Broadcom pin numbering
-        GPIO.setup(self.pin_sensor_digital, GPIO.IN)  # Flammesensor bliver sat som input
-        GPIO.setup(pin_led, GPIO.OUT)  # LED bliver sat som output
+
 
     def main(self):
         try:
             # Main loop
+                    # GPIO setup
+            GPIO.setmode(GPIO.BCM)  # Use Broadcom pin numbering
+            GPIO.setup(self.pin_sensor_digital, GPIO.IN)  # Flammesensor bliver sat som input
+            GPIO.setup(self.pin_led, GPIO.OUT)  # LED bliver sat som output
             sensor_value_digital = GPIO.input(self.pin_sensor_digital)
 
             if sensor_value_digital == 1:
