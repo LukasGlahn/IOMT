@@ -4,7 +4,7 @@ import time
 
 class Motore():
 
-    def __init__(self,direction=False, step=0.002, pin1=21, pin2=20, pin3=16, pin4=12):
+    def __init__(self, direction=False, step=0.002, pin1=21, pin2=20, pin3=16, pin4=12):
         self.in1 = pin1
         self.in2 = pin2
         self.in3 = pin3
@@ -26,7 +26,8 @@ class Motore():
                         [0,0,1,0],
                         [0,0,1,1],
                         [0,0,0,1]]
-    def rotade(self):
+    def rotade(self,steps):
+        self.step_count = steps # 5.625*(1/64) per step, 4096 steps is 360°
         # setting up
         GPIO.setmode( GPIO.BCM )
         GPIO.setup( self.in1, GPIO.OUT )
@@ -50,7 +51,7 @@ class Motore():
             GPIO.output( self.in4, GPIO.LOW )
             GPIO.cleanup()
 
-    # the meat
+        # the meat
         try:
             i = 0
             for i in range(self.step_count):
@@ -71,4 +72,7 @@ class Motore():
             exit( 1 )
 
         cleanup()
-        exit( 0 )
+
+#moter = Motore()
+
+#moter.rotade(4000)
