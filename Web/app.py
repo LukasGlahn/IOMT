@@ -25,7 +25,7 @@ def dispense(pills, ip):
 
 def ping(ip):
     param = '-n' if sys.platform.lower() == 'win32' else '-c'
-    hostname = ip  # example
+    hostname = ip  
     response = os.system(f"ping {param} 1 {hostname}")
     
     # and then check the response...
@@ -91,7 +91,6 @@ def index():
 		except:
 			return render_template('forside.html',warn = 'WRONG PASSWORD OR USERNAME')
 	return render_template('forside.html', warn = 'none')
-        #^^^^fix login page^^^^
 
 @app.route("/menu")
 def menu():

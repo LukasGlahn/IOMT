@@ -70,7 +70,7 @@ def bit_lock(row):
 def turn(pills):
     for pill in pills:
         bit_lock(decimal_to_5bit_list(pill[0]))
-        moter.rotade(600*int(pill[1]))
+        moter.rotade(700*int(pill[1]))
         GPIO.cleanup()
         
     
